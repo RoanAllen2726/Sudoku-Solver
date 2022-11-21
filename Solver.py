@@ -56,12 +56,6 @@ grid = [[2, 5, 0, 0, 3, 0, 9, 0, 1],
       [0, 0, 0, 3, 6, 0, 0, 7, 2],
       [0, 7, 0, 0, 0, 0, 0, 0, 3],
       [9, 0, 3, 0, 0, 0, 6, 0, 4]]
-
-if (Suduko(grid, 0, 0)):
-    puzzle(grid)
-else:
-    print("Solution does not exist:(")
-
 pygame.init()
 surface = pygame.display.set_mode((475, 475))
 background_colour = (255,255,255)
@@ -72,22 +66,39 @@ xnum = 0
 ynum = 0
 x = 30
 y = 30
+row = 0
+column = 0
+num = 1
 while ynum < 9:
     while xnum < 9:
         pygame.draw.rect(surface, color, pygame.Rect(x, y, 40, 40), 2)
+        surface.blit(pygame.font.SysFont('Arial', 25).render(str(grid[row][column]), True, (0,0,0)), (x + 9, y + 6))
+        pygame.display.update()
         x += 40
         xnum += 1
+        num += 1
+        column += 1
+    column = 0
+    row += 1
     xnum = 0
     x = 30
     y += 40
     ynum += 1
 
+color_light = (170, 170, 170)
+color_dark = (100, 100, 100)
 
-pygame.display.flip()
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+if (Suduko(grid, 0, 0)):
+    puzzle(grid)
+else:
+    print("Solution does not exist:")
+
+
 
 
